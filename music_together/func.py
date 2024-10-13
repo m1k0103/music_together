@@ -39,8 +39,16 @@ class Database:
                     capacity INT,
                     queue INT,
                     room_owner INT,
+                    chat_id INT,
                     FOREIGN KEY (queue) REFERENCES queue(qid),
                     FOREIGN KEY (room_owner) REFERENCES users(uid)
+                    FOREIGN KEY (chat_id) REFERENCES chats(cid)
+                    )""")
+        cur.execute("""CREATE TABLE chats(
+                    cid INT PRIMARY KEY,
+                    user_id INT,
+                    message TEXT,
+                    FOREIGN KEY (user_id) REFERENCES users(uid)
                     )""")
         con.commit()
         con.close()
