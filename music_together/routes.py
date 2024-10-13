@@ -7,6 +7,10 @@ app.route("/")
 def index():
     pass
 
+@app.route("/register")
+def register():
+    pass
+
 @app.route("/login")
 def login():
     pass
@@ -43,3 +47,10 @@ def add_to_room_queue():
 def remove_from_room_queue():
     pass
 
+@app.route("/get_room_chat")
+def get_room_chat():
+    pass
+
+@app.route("/send_message")
+def send_room_chat_message():
+    pass
