@@ -1,0 +1,14 @@
+.navbar-container{
+    width: auto;
+}
+
+li.navbar{
+    font-size: large;
+    float: right;
+    display: block;
+    border: 2px black solid;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+    padding: 4px;
+    background-color: lightgrey;
+}
