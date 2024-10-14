@@ -1,16 +1,31 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request, session
+from music_together.func import Database, get_db_name, get_secret
 
 app = Flask(__name__)
+DB = Database(get_db_name())
 
+app.secret_key = get_secret()
 
 @app.route("/")
 def index():
     return render_template("index.html")
     
+@app.route("/signup",methods=["GET","POST"])
+def signup():
+    if request.method == "GET":
+        return render_template("signup.html")
+    elif request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        password_conf = request.form["password-conf"]
+        if password == password_conf and DB.is_user_taken(username):
+            DB.create_user(username,password)
+            session["username"] = username
+            return redirect(url_for("index"))
+        else:
+            return redirect(url_for("signup"))
+        
 
-@app.route("/register")
-def register():
-    pass
 
 @app.route("/login")
 def login():
@@ -18,6 +33,8 @@ def login():
 
 @app.route("/logout")
 def logout():
+    session.clear()
+    return redirect(url_for("index"))
     pass
 
 @app.route("/get_rooms") # will be displayed on the index page
