@@ -18,23 +18,23 @@ class Database:
     def make(self):
         con = sqlite3.connect(self.name)
         cur = con.cursor()
-        cur.execute("""CREATE TABLE songs(
+        cur.execute("""CREATE TABLE IF NOT EXISTS songs(
                     sid int PRIMARY KEY,
                     source TEXT,
                     music_path TEXT
                     )""")
-        cur.execute("""CREATE TABLE queues(
+        cur.execute("""CREATE TABLE IF NOT EXISTS queues(
                     qid INT PRIMARY KEY,
                     count INT,
                     song_id INT,
                     FOREIGN KEY(song_id) REFERENCES songs(sid)
                     )""")
-        cur.execute("""CREATE TABLE users(
+        cur.execute("""CREATE TABLE IF NOT EXISTS users(
                     uid INT PRIMARY KEY,
                     username TEXT,
                     phash TEXT
                     )""")
-        cur.execute("""CREATE TABLE rooms(
+        cur.execute("""CREATE TABLE IF NOT EXISTS rooms(
                     rid INT PRIMARY KEY,
                     capacity INT,
                     queue INT,
@@ -44,7 +44,7 @@ class Database:
                     FOREIGN KEY (room_owner) REFERENCES users(uid)
                     FOREIGN KEY (chat_id) REFERENCES chats(cid)
                     )""")
-        cur.execute("""CREATE TABLE chats(
+        cur.execute("""CREATE TABLE IF NOT EXISTS chats(
                     cid INT PRIMARY KEY,
                     user_id INT,
                     message TEXT,
@@ -52,3 +52,5 @@ class Database:
                     )""")
         con.commit()
         con.close()
+    
+    
