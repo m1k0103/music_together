@@ -1,11 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
 
 
-app.route("/")
+@app.route("/")
 def index():
-    pass
+    return render_template("index.html")
+    
 
 @app.route("/register")
 def register():
