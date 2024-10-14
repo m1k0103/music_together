@@ -27,8 +27,12 @@ def signup():
         
 
 
-@app.route("/login")
+@app.route("/login",methods=["GET","POST"])
 def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        pass # do stuff here
     pass
 
 @app.route("/logout")
