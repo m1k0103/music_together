@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<h1>signup</h1>
+
+<div class="register-container">
+
+    <form action="/signup" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+        <label for="password-conf">Confirm Password:</label>
+        <input type="password" id="password-conf" name="password-conf"><br>
+        <input type="submit" value="Sign Up">
+    </form>
+
+</div>
+
+{% endblock %}
