@@ -1,5 +1,6 @@
 import sqlite3
 import yaml
+import hashlib
 
 def get_db_name():
     try:
@@ -11,6 +12,17 @@ def get_db_name():
         print("[!] NO CONFIG FILE FOUND")
         quit()
 
+def get_secret():
+    try:
+        with open("config.yaml", "r") as cfg:
+            contents = yaml.safe_load(cfg)
+            secret = contents["secret"]
+            return secret
+    except:
+        print("[!] NO CONFIG FILE FOUND")
+        quit()
+
+
 class Database:
     def __init__(self,name):
         self.name = name
@@ -19,23 +31,23 @@ class Database:
         con = sqlite3.connect(self.name)
         cur = con.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS songs(
-                    sid int PRIMARY KEY,
+                    sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     source TEXT,
                     music_path TEXT
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS queues(
-                    qid INT PRIMARY KEY,
+                    qid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     count INT,
                     song_id INT,
                     FOREIGN KEY(song_id) REFERENCES songs(sid)
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS users(
-                    uid INT PRIMARY KEY,
+                    uid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     username TEXT,
                     phash TEXT
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS rooms(
-                    rid INT PRIMARY KEY,
+                    rid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     capacity INT,
                     queue INT,
                     room_owner INT,
@@ -45,7 +57,7 @@ class Database:
                     FOREIGN KEY (chat_id) REFERENCES chats(cid)
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS chats(
-                    cid INT PRIMARY KEY,
+                    cid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     user_id INT,
                     message TEXT,
                     FOREIGN KEY (user_id) REFERENCES users(uid)
@@ -53,4 +65,19 @@ class Database:
         con.commit()
         con.close()
     
-    
+    def is_user_taken(self,username):
+        con = sqlite3.connect(self.name)
+        cur = con.cursor()
+        result = cur.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
+        if result == False or None:
+            return False
+        else:
+            return True
+        
+    def create_user(self,username,password):
+        phash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        con = sqlite3.connect(self.name)
+        cur = con.cursor()
+        cur.execute("INSERT INTO users(username,phash) VALUES (?,?)",[username,phash])
+        con.commit()
+        con.close()
