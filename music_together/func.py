@@ -48,6 +48,8 @@ class Database:
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS rooms(
                     rid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    name TEXT,
+                    password TEXT,
                     capacity INT,
                     queue INT,
                     room_owner INT,
@@ -92,3 +94,11 @@ class Database:
             return True
         else:
             return False
+
+    def get_all_rooms_info(self):
+        con = sqlite3.connect(self.name)
+        cur = con.cursor()
+        result = [list(tup) for tup in cur.execute("SELECT name,password,capacity FROM rooms").fetchall()]
+        
+        
+        pass
