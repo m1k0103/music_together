@@ -99,6 +99,6 @@ class Database:
         con = sqlite3.connect(self.name)
         cur = con.cursor()
         result = [list(tup) for tup in cur.execute("SELECT name,password,capacity FROM rooms").fetchall()]
-        
+        return result
         
         pass
