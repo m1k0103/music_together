@@ -13,7 +13,7 @@ app.secret_key = get_secret()
 def index():
     if request.method == "GET":
         all_rooms = DB.get_all_rooms_info()
-        return render_template("index.html") #pass all_rooms into template 
+        return render_template("index.html", all_rooms=all_rooms) #pass all_rooms into template 
     elif request.method == "POST":
         pass
 
