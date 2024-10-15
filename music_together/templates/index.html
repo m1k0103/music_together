@@ -3,6 +3,19 @@
 {% block head %}{% endblock %}
 {% block content %}
 
+<div class="left-container">
+    <div class="room-menu-box">
+        <div class="room-name">Bob's Room</div>
+        <div class="room-capacity">5</div>
+        <div class="room-privacy">Private</div>
+        <form action="/join-room" method="post">
+            <button class="room-join-button" onclick="this.form.submit()">
+                Join
+            </button>
+        </form>
 
+    </div>
+
+</div>
 
 {% endblock %}
