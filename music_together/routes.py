@@ -32,8 +32,14 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     elif request.method == "POST":
-        pass # do stuff here
-    pass
+        username = request.form["username"]
+        password = request.form["password"]
+        if DB.is_user_taken(username) == True and DB.validate_password(username,password) == True:
+            session["username"] = username
+            return redirect(url_for("index"))
+        else:
+            return redirect(url_for("login"))
+    
 
 @app.route("/logout")
 def logout():
