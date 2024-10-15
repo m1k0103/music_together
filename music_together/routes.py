@@ -1,15 +1,23 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from music_together.func import Database, get_db_name, get_secret
 
+# Initialized Flask and Database classes
 app = Flask(__name__)
 DB = Database(get_db_name())
 
+# Gets secret key stored in config.yaml
 app.secret_key = get_secret()
 
-@app.route("/")
+# Route and behaviour for the index page. (aka homepage)
+@app.route("/",methods=["GET","POST"])
 def index():
-    return render_template("index.html")
-    
+    if request.method == "GET":
+        all_rooms = DB.get_all_rooms_info()
+        return render_template("index.html") #pass all_rooms into template 
+    elif request.method == "POST":
+        pass
+
+# Route and behaviours for the signup page.
 @app.route("/signup",methods=["GET","POST"])
 def signup():
     if request.method == "GET":
@@ -25,7 +33,6 @@ def signup():
         else:
             return redirect(url_for("signup"))
         
-
 
 @app.route("/login",methods=["GET","POST"])
 def login():
