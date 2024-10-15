@@ -68,11 +68,11 @@ class Database:
     def is_user_taken(self,username):
         con = sqlite3.connect(self.name)
         cur = con.cursor()
-        result = cur.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()
-        if result == False or None:
-            return False
-        else:
+        try:
+            result = cur.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()[0]
             return True
+        except:
+            return False
         
     def create_user(self,username,password):
         phash = hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -81,3 +81,14 @@ class Database:
         cur.execute("INSERT INTO users(username,phash) VALUES (?,?)",[username,phash])
         con.commit()
         con.close()
+
+    def validate_password(self,username,password):
+        input_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        con = sqlite3.connect(self.name)
+        cur = con.cursor()
+        stored_hash = cur.execute("SELECT phash FROM users WHERE username=?",[username]).fetchone()[0]
+        con.close()
+        if str(input_hash) == str(stored_hash):
+            return True
+        else:
+            return False
