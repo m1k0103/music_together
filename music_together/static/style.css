@@ -1,0 +1,84 @@
+body{
+    background-color: #8f8f8f;
+}
+.navbar-container{
+    width: auto;
+}
+li.navbar{
+    font-size: large;
+    float: right;
+    display: block;
+    border: 2px black solid;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+    padding: 4px;
+    background-color: lightgrey;
+}
+.error{
+    width: 40%;
+    border: 1px solid black;
+    color: #cc0033;
+    text-align: center;
+    background-color: #fea2a3;
+    margin: 8px;
+    position: relative;
+    padding-top: 1em;
+    height: 2em;
+}
+.close-error{
+    cursor:pointer;
+    position: absolute;
+    right: 15px;
+    font-size: 24px;
+    top: 10px;
+}
+.left-container{
+    width: 50%;
+    float: left;
+}
+.room-menu-box{
+    display: flex;
+    border: 1px black solid;
+    background-color: #adadad;
+
+}
+.room-name, .room-privacy {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-right: 1px black solid;
+    max-width: 7em;
+    width: 7em;
+    text-align: center;
+}
+.room-capacity{
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-right: 1em;
+    border-right: 1px black solid;
+}
+.room-join-button{
+    width: 80px;
+    background-color: #2cb651;
+    border: 1px black solid;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 7%;
+    margin-right: 8%;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding-top: 2%;
+    
+}
+.room-join-button:hover{
+    background-color: #269c46;
+}
