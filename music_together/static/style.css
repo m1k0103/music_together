@@ -40,6 +40,8 @@ li.navbar{
     display: flex;
     border: 1px black solid;
     background-color: #adadad;
+    margin-bottom: 30px;
+    width: 600px;
 
 }
 .room-name, .room-privacy {
@@ -66,7 +68,6 @@ li.navbar{
     border-right: 1px black solid;
 }
 .room-join-button{
-    width: 80px;
     background-color: #2cb651;
     border: 1px black solid;
     margin-top: 4px;
