@@ -3,19 +3,23 @@
 {% block head %}{% endblock %}
 {% block content %}
 
+{% for name,password,capacity in all_rooms%}
 <div class="left-container">
     <div class="room-menu-box">
-        <div class="room-name">Bob's Room</div>
-        <div class="room-capacity">5</div>
-        <div class="room-privacy">Private</div>
+        <div class="room-name">{{name}}</div>
+        <div class="room-capacity">{{capacity}}</div>
+        <div class="room-privacy">{%if password%}Private{%else%}Public{%endif%}</div>
+        {% if session.username %}
         <form action="/join-room" method="post">
             <button class="room-join-button" onclick="this.form.submit()">
                 Join
             </button>
         </form>
-
+        {% else %}
+            <button class="room-join-button" href="{{url_for('signup')}}">Sign Up to Join</button>
+        {% endif %}
     </div>
-
+{% endfor %}
 </div>
 
 {% endblock %}
