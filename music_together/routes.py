@@ -11,9 +11,10 @@ app.secret_key = get_secret()
 # Route and behaviour for the index page. (aka homepage)
 @app.route("/",methods=["GET","POST"])
 def index():
+    error = ""
     if request.method == "GET":
         all_rooms = DB.get_all_rooms_info()
-        return render_template("index.html", all_rooms=all_rooms) #pass all_rooms into template 
+        return render_template("index.html", all_rooms=all_rooms,error=error) #pass all_rooms into template 
     elif request.method == "POST":
         pass
 
