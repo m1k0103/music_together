@@ -3,6 +3,7 @@
 {% block head %}{% endblock %}
 {% block content %}
 
+
 {% for name,password,capacity in all_rooms%}
 <div class="left-container">
     <div class="room-menu-box">
@@ -19,5 +20,14 @@
     </div>
 {% endfor %}
 </div>
+<div class="right-container">
+
+    <div class="create-room-container">
+        <p>Create room</p>
+    </div>
+
+
+</div>
+
 
 {% endblock %}
