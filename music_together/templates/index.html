@@ -10,10 +10,8 @@
         <div class="room-capacity">{{capacity}}</div>
         <div class="room-privacy">{%if password%}Private{%else%}Public{%endif%}</div>
         {% if session.username %}
-        <form action="/join-room" method="post">
-            <button class="room-join-button" onclick="this.form.submit()">
-                Join
-            </button>
+        <form action="/join_room" method="post">
+            <button type="submit" class="room-join-button" onclick="this.form.submit()">Join room</button>
         </form>
         {% else %}
             <button class="room-join-button" href="{{url_for('signup')}}">Sign Up to Join</button>
