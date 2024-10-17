@@ -26,10 +26,14 @@ def get_secret():
 class Database:
     def __init__(self,name):
         self.name = name
-    
-    def make(self):
+
+    def db_connect(self):
         con = sqlite3.connect(self.name)
         cur = con.cursor()
+        return con,cur
+
+    def make(self):
+        con,cur = self.db_connect()
         cur.execute("""CREATE TABLE IF NOT EXISTS songs(
                     sid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     source TEXT,
@@ -68,26 +72,25 @@ class Database:
         con.close()
     
     def is_user_taken(self,username):
-        con = sqlite3.connect(self.name)
-        cur = con.cursor()
+        con,cur = self.db_connect()
         try:
             result = cur.execute("SELECT username FROM users WHERE username=?", [username]).fetchone()[0]
+            con.close()
             return True
         except:
+            con.close()
             return False
         
     def create_user(self,username,password):
         phash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        con = sqlite3.connect(self.name)
-        cur = con.cursor()
+        con,cur = self.db_connect()
         cur.execute("INSERT INTO users(username,phash) VALUES (?,?)",[username,phash])
         con.commit()
         con.close()
 
     def validate_password(self,username,password):
         input_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        con = sqlite3.connect(self.name)
-        cur = con.cursor()
+        con,cur = self.db_connect()
         stored_hash = cur.execute("SELECT phash FROM users WHERE username=?",[username]).fetchone()[0]
         con.close()
         if str(input_hash) == str(stored_hash):
@@ -96,9 +99,20 @@ class Database:
             return False
 
     def get_all_rooms_info(self):
-        con = sqlite3.connect(self.name)
-        cur = con.cursor()
+        con,cur = self.db_connect()
         result = [list(tup) for tup in cur.execute("SELECT name,password,capacity FROM rooms").fetchall()]
         return result
         
-        pass
+    def create_room(self,rname,rpass,capacity,user_creating):
+        con,cur = self.db_connect()
+        cur.execute("INSERT INTO room(name,password,capacity,room_owner) VALUES (?,?,?,(SELECT uid FROM users WHERE username=?))",[rname,rpass,capacity,user_creating])
+        con.commit()
+        room_id = cur.execute("SELECT rid FROM rooms WHERE name=? AND password=?",[rname,rpass]).fetchall()[0][0]
+        con.close()
+        return room_id
+    
+    def send_message(self,user,message):
+        con,cur = self.db_connect()
+
+    
+    
