@@ -27,7 +27,7 @@ def signup():
         username = request.form["username"]
         password = request.form["password"]
         password_conf = request.form["password-conf"]
-        if password == password_conf and DB.is_user_taken(username):
+        if password == password_conf and DB.is_user_taken(username) == False:
             DB.create_user(username,password)
             session["username"] = username
             return redirect(url_for("index"))
@@ -55,16 +55,16 @@ def logout():
     return redirect(url_for("index"))
     pass
 
-@app.route("/get_rooms") # will be displayed on the index page
-def get_rooms():
-    pass
-
 @app.route("/create_room")
 def create_room():
     pass
 
 @app.route("/delete_room")
 def delete_room():
+    pass
+
+@app.route("/join_room")
+def join_room():
     pass
 
 @app.route("/change_room_name")
