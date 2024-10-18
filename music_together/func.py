@@ -22,6 +22,11 @@ def get_secret():
         print("[!] NO CONFIG FILE FOUND")
         quit()
 
+def is_session_valid(session):
+    if "authed" in session and session["authed"]:
+        return True
+    else:
+        return False
 
 class Database:
     def __init__(self,name):
@@ -104,7 +109,7 @@ class Database:
         
     def create_room(self,rname,rpass,capacity,user_creating):
         con,cur = self.db_connect()
-        cur.execute("INSERT INTO room(name,password,capacity,room_owner) VALUES (?,?,?,(SELECT uid FROM users WHERE username=?))",[rname,rpass,capacity,user_creating])
+        cur.execute("INSERT INTO rooms(name,password,capacity,room_owner) VALUES (?,?,?,(SELECT uid FROM users WHERE username=?))",[rname,rpass,capacity,user_creating])
         con.commit()
         room_id = cur.execute("SELECT rid FROM rooms WHERE name=? AND password=?",[rname,rpass]).fetchall()[0][0]
         con.close()
@@ -113,5 +118,4 @@ class Database:
     def send_message(self,user,message):
         con,cur = self.db_connect()
         cur.execute("INSERT INTO chats()")
-    
     
