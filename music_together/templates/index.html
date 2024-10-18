@@ -3,9 +3,8 @@
 {% block head %}{% endblock %}
 {% block content %}
 
-
-{% for name,password,capacity in all_rooms%}
 <div class="left-container">
+{% for name,password,capacity in all_rooms%}
     <div class="room-menu-box">
         <div class="room-name">{{name}}</div>
         <div class="room-capacity">{{capacity}}</div>
@@ -23,7 +22,17 @@
 <div class="right-container">
 
     <div class="create-room-container">
-        <p>Create room</p>
+        <div class="create-room-title"><b><u>Create room</u></b></div>
+        <p style="font-size: x-small; margin:0;">*NOTE*: Not entering a password will allow anyone to join!</p>
+        <form action="/create_room" method="post">
+            <label style="display: inline-block; width: 150px;" for="room_name">Room name:</label>
+            <input type="text" name="room_name" id="room_name"><br>
+            <label style="display: inline-block; width: 150px;" for="room_password">Room password:</label>
+            <input type="password" name="room_password" id="room_password"><br>
+            <input type="submit" value="Create Room">
+
+        </form>
+
     </div>
 
 
