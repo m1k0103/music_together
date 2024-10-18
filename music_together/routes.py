@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-from music_together.func import Database, get_db_name, get_secret
+from music_together.func import Database, get_db_name, get_secret, is_session_valid
 
 # Initialized Flask and Database classes
 app = Flask(__name__)
@@ -8,12 +8,15 @@ DB = Database(get_db_name())
 # Gets secret key stored in config.yaml
 app.secret_key = get_secret()
 
+global error
+error = ""
+
 # Route and behaviour for the index page. (aka homepage)
 @app.route("/",methods=["GET","POST"])
 def index():
-    error = ""
     if request.method == "GET":
         all_rooms = DB.get_all_rooms_info()
+        print(f"error: {error}")
         return render_template("index.html", all_rooms=all_rooms,error=error) #pass all_rooms into template 
     elif request.method == "POST":
         pass
@@ -30,6 +33,7 @@ def signup():
         if password == password_conf and DB.is_user_taken(username) == False:
             DB.create_user(username,password)
             session["username"] = username
+            session["authed"] = True
             return redirect(url_for("index"))
         else:
             return redirect(url_for("signup"))
@@ -55,9 +59,19 @@ def logout():
     return redirect(url_for("index"))
     pass
 
-@app.route("/create_room")
+@app.route("/create_room",methods=["POST"])
 def create_room():
-    pass
+    if request.method == "POST":
+        rname = request.form["room_name"]
+        rpassword = request.form["room_password"]
+        capacity = int(request.form["capacity"])
+        if is_session_valid(session) == False:
+            print("session invalid")
+            return redirect(url_for("index"))
+        else:
+            DB.create_room(rname,rpassword,capacity,session["username"])
+            print("room created")
+            return redirect(url_for("index"))
 
 @app.route("/delete_room")
 def delete_room():
