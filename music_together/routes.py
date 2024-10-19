@@ -1,6 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from music_together.func import Database, get_db_name, get_secret, is_session_valid
 
+# TODO
+#   - figure out a way to display any errors
+#   - do more coding than soly (im watching you...)
+#   - When making a route, finish the func that it will need
+#   - Other?????
+#   - Write a proper readme
+
 # Initialized Flask and Database classes
 app = Flask(__name__)
 DB = Database(get_db_name())
@@ -8,6 +15,7 @@ DB = Database(get_db_name())
 # Gets secret key stored in config.yaml
 app.secret_key = get_secret()
 
+# Error variable. CURRENTLY DOESNT WORK.
 global error
 error = ""
 
@@ -38,7 +46,7 @@ def signup():
         else:
             return redirect(url_for("signup"))
         
-
+# Login route. Handles rendering the login page and the login POST request
 @app.route("/login",methods=["GET","POST"])
 def login():
     if request.method == "GET":
@@ -52,13 +60,14 @@ def login():
         else:
             return redirect(url_for("login"))
     
-
+# Clears session of the user.
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("index"))
     pass
 
+# Route that allows a room to be created.
 @app.route("/create_room",methods=["POST"])
 def create_room():
     if request.method == "POST":
