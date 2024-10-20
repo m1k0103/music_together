@@ -82,13 +82,18 @@ def create_room():
             print("room created")
             return redirect(url_for("index"))
 
+@app.route("/room/<room_id>",methods=["GET","POST"])
+def view_room(room_id):
+    pass
+
 @app.route("/delete_room")
 def delete_room():
     pass
 
-@app.route("/join_room")
+@app.route("/join_room",methods=["POST"])
 def join_room():
-    pass
+    if request.method == "POST":
+        pass
 
 @app.route("/change_room_name")
 def change_room_name():
