@@ -4,23 +4,22 @@
 {% block content %}
 
 <div class="left-container">
-{% for name,password,capacity in all_rooms%}
+{% for room_id,name,password,capacity in all_rooms%}
     <div class="room-menu-box">
         <div class="room-name">{{name}}</div>
         <div class="room-capacity">{{capacity}}</div>
         <div class="room-privacy">{%if password%}Private{%else%}Public{%endif%}</div>
         {% if session.username %}
-        <form action="/join_room" method="post">
-            <button type="submit" class="room-join-button" onclick="this.form.submit()">Join room</button>
-        </form>
+        <button type="submit" class="room-join-button" onclick="show_popup('{{room_id}}')">Join room</button>
+    
         {% else %}
-            <button class="room-join-button" href="{{url_for('signup')}}">Sign Up to Join</button>
+        <button class="room-join-button" href="{{url_for('signup')}}">Sign Up to Join</button>
         {% endif %}
-    </div>
+</div>
 {% endfor %}
 </div>
 <div class="right-container">
-
+    
     <div class="create-room-container">
         <div class="create-room-title"><b><u>Create room</u></b></div>
         <p style="font-size: x-small; margin:0;">*NOTE*: Not entering a password will allow anyone to join!</p>
@@ -32,12 +31,25 @@
             <label style="display: inline-block; width: 150px;" for="capacity">Capacity:</label>
             <input type="number" name="capacity" id="capacity">
             <input type="submit" value="Create Room">
-
+            
         </form>
-
+        
     </div>
+    
+    
+</div>
 
-
+<!--Popup for inputting the password for the room-->
+<div class="popup">
+    <!---->
+    <div class="popup-contents">
+        <p><u>Please enter password to join the room</u></p>
+        <form action="/join_room" method="post">
+            <label for="room-password-input">Room Password:</label>
+            <input type="password" name="room-password-input" id="room-password-input"><br>
+            <input type="submit" value="Join">
+        </form>
+    </div>
 </div>
 
 
