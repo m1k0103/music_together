@@ -45,7 +45,7 @@ class Database:
                     music_path TEXT
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS queues(
-                    qid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    associated_rid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     count INT,
                     song_id INT,
                     FOREIGN KEY(song_id) REFERENCES songs(sid)
@@ -53,16 +53,15 @@ class Database:
         cur.execute("""CREATE TABLE IF NOT EXISTS users(
                     uid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     username TEXT,
-                    phash TEXT
+                    phash TEXT,
+                    connected_to_rid INTEGER
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS rooms(
                     rid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     name TEXT,
                     password TEXT,
                     capacity INT,
-                    queue INT,
                     room_owner INT,
-                    FOREIGN KEY (queue) REFERENCES queue(qid),
                     FOREIGN KEY (room_owner) REFERENCES users(uid)
                     )""")
         cur.execute("""CREATE TABLE IF NOT EXISTS chats(
@@ -104,7 +103,7 @@ class Database:
 
     def get_all_rooms_info(self):
         con,cur = self.db_connect()
-        result = [list(tup) for tup in cur.execute("SELECT name,password,capacity FROM rooms").fetchall()]
+        result = [list(tup) for tup in cur.execute("SELECT rid,name,password,capacity FROM rooms").fetchall()]
         return result
         
     def create_room(self,rname,rpass,capacity,user_creating):
@@ -119,3 +118,6 @@ class Database:
         con,cur = self.db_connect()
         cur.execute("INSERT INTO chats()")
     
+    def join_room(self,user,provided_pass,room_id):
+        con,cur = self.db_connect()
+        cur.execute("")
