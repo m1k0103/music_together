@@ -42,6 +42,17 @@
             const error = document.getElementById("error")
             error.style.display = "none"
         }
+
+        function open_popup(room_num){
+            const popup = document.getElementById("popup")
+            popup.style.display = "flex"
+            document.getElementById("room_id").innerHTML = room_num
+        }
+
+        function close_popup(){
+            const popup = document.getElementById("popup")
+            popup.style.display = "none"
+        }
     </script>
 </body>
 </html>
