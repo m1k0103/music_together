@@ -118,6 +118,11 @@ class Database:
         con,cur = self.db_connect()
         cur.execute("INSERT INTO chats()")
     
-    def join_room(self,user,provided_pass,room_id):
+    def join_room(self,room_id,user,provided_pass):
         con,cur = self.db_connect()
-        cur.execute("")
+        room_pass = cur.execute("SELECT password FROM rooms WHERE rid=?",[room_id]).fetchone()
+        # Add password check, if stored_pass == "" and also for if its correct.
+        # Add check for if capacity is full or not by fetching capacity of room
+        # and the amount of users that have the connected_to_rid of the room stored.
+        # -----CARRY ON FROM HERE AND THE join_room ROUTE-----
+        cur.execute("UPDATE users SET connected_to_rid=? WHERE username=?",[room_id,user])
