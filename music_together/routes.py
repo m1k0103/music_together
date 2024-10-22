@@ -93,7 +93,17 @@ def delete_room():
 @app.route("/join_room",methods=["POST"])
 def join_room():
     if request.method == "POST":
-        pass
+        try: # if room is public
+            room_id = request.form["room_id"]
+            room_password = request.form["room-password-input"]
+            return "public"
+        except: # if room is public
+            room_id = request.form["room_id"]
+            rpasswd = ""
+            DB.join_room(room_id,session["username"],rpasswd)
+            return "error" 
+        # CARRY ON FROM HERE AND FINISH join_room FUNC PLEASE
+        
 
 @app.route("/change_room_name")
 def change_room_name():
