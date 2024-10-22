@@ -8,7 +8,7 @@
     <div class="popup-contents">
         <span class="popup-close" onclick="close_popup()">&times;</span>
         <p><u>Please enter password to join the room <u id="room_id"></u></u></p>
-        <form action="/join_room" method="post">
+        <form action="/room" method="post">
             <label for="room-password-input">Room Password:</label>
             <input type="password" name="room-password-input" id="room-password-input"><br>
             <input type="submit" value="Join">
@@ -27,7 +27,7 @@
             {% if password %}
             <button class="room-join-button" onclick="open_popup('{{room_id}}')">Join room</button>
             {% else %}
-            <form action="/join_room" method="post">
+            <form action="/room" method="post">
                 <input type="hidden" name="room_id" value="{{room_id}}">
                 <button class="room-join-button" onclick="this.parentNode.form.submit()">Join room</button>
             </form>
