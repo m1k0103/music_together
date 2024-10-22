@@ -120,9 +120,17 @@ class Database:
     
     def join_room(self,room_id,user,provided_pass):
         con,cur = self.db_connect()
-        room_pass = cur.execute("SELECT password FROM rooms WHERE rid=?",[room_id]).fetchone()
-        # Add password check, if stored_pass == "" and also for if its correct.
-        # Add check for if capacity is full or not by fetching capacity of room
-        # and the amount of users that have the connected_to_rid of the room stored.
-        # -----CARRY ON FROM HERE AND THE join_room ROUTE-----
-        cur.execute("UPDATE users SET connected_to_rid=? WHERE username=?",[room_id,user])
+        room_pass = cur.execute("SELECT password FROM rooms WHERE rid=?",[room_id]).fetchone()[0]
+        room_cap = cur.execute("SELECT capacity FROM rooms WHERE rid=?",[room_id]).fetchone()[0]
+        connected_users = len(cur.execute("SELECT username FROM users WHERE connected_to_rid=?",[room_id]).fetchall())
+        if connected_users >= room_cap:
+            return False
+        else:
+            if provided_pass != room_pass:
+                return False
+            else:
+                cur.execute("UPDATE users SET connected_to_rid=? WHERE username=?",[room_id,user])
+                con.commit()
+                con.close()
+                return True
+            
