@@ -50,6 +50,8 @@ li.navbar{
     /*border: 1px blue solid;*/
     width: 50%;
     max-width: 50%;
+    display: table;
+    height: 95%;
 }
 .right-container{
     margin-top:35px;
@@ -194,17 +196,22 @@ li.navbar{
 }
 .chat-input-container{
     border: 1px yellow solid;
-    display: absolute;
-    margin-top: 200px;
-    left: 0;
-    bottom: 0;   
-    text-align: center; 
+    padding: 3px;
+    display: flex;  
+    text-align: center;
+    flex-flow: column;
+    height: 100%;
+    position: relative;
 }
 .chat-input{
-    
+    border: 1px black solid;
+    padding: 6px; 
+    vertical-align: bottom;
+    flex: 1 1;
 }
 #message{
     width: 50%;
+    text-align: left;
     margin-top: 4px;
     margin-bottom: 4px;
 }
