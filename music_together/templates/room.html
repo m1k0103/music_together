@@ -3,7 +3,14 @@
 {% block head %}{% endblock %}
 {% block content %}
 
+
+
 <div class="left-container" style="border: 1px red solid;">
+
+    <form action="/leave_current_room" method="post">
+        <input type="submit" value="Leave Room">
+    </form>
+
     <!--Chatbox in chat left-container which is just used as a 
     container for the whole chat stuff-->
     <div class="chatbox">
@@ -16,11 +23,11 @@
 
     <div class="chat-input-container">
         <form action="/send_message" method="post">
-            <div class="chat-input">
+            <span class="chat-input">
                 <label for="message">Message:</label>
                 <input type="text" name="message" id="message">
                 <input type="submit" value="Send">
-            </div>    
+            </span>    
         </form>
     </div>
 
