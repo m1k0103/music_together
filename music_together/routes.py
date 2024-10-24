@@ -23,6 +23,7 @@ error = ""
 @app.route("/",methods=["GET","POST"])
 def index():
     if request.method == "GET":
+        session["room"] = ""
         all_rooms = DB.get_all_rooms_info()
         print(f"error: {error}")
         return render_template("index.html", all_rooms=all_rooms,error=error) #pass all_rooms into template 
@@ -82,15 +83,21 @@ def create_room():
             print("room created")
             return redirect(url_for("index"))
 
-@app.route("/room/<room_id>",methods=["GET","POST"])
-def view_room(room_id):
-    pass
+@app.route("/room",methods=["GET","POST"])
+def room():
+    if request.method == "GET":
+        if session["room"] != "":
+            room_id = session["room"]
+            return render_template("room.html", room_id=room_id)
+        else:
+            return redirect(url_for("index"))
+
 
 @app.route("/delete_room")
 def delete_room():
     pass
 
-@app.route("/room",methods=["POST"])
+@app.route("/join_room",methods=["POST"])
 def join_room():
     if request.method == "POST":
         try: # if room is public
@@ -101,10 +108,16 @@ def join_room():
             room_id = request.form["room_id"]
             joined = DB.join_room(room_id,session["username"],room_password)
             if joined == True:
-                return render_template("room.html",room_id=room_id,)
+                session["room"] = room_id
+                return redirect(url_for("room"))
             else:
                 return redirect(url_for("index")) 
         
+@app.route("/leave_current_room",methods=["POST"])
+def leave_current_room():
+    session["room"] = ""
+    DB.leave_room(session["username"])
+    return redirect(url_for("index"))
 
 @app.route("/change_room_name")
 def change_room_name():
