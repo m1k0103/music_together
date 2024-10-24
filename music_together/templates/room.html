@@ -4,7 +4,32 @@
 {% block content %}
 
 <div class="left-container" style="border: 1px red solid;">
+    <!--Chatbox in chat left-container which is just used as a 
+    container for the whole chat stuff-->
+    <div class="chatbox">
+        <div class="chat-time">time</div>
+        <div class="chat-username">bob50</div>
+        <div class="chat-message-container">
+            <span class="chat-message-text">Hello wordl!</span>
+        </div>
+    </div>
+
+    <div class="chat-input-container">
+        <form action="/send_message" method="post">
+            <div class="chat-input">
+                <label for="message">Message:</label>
+                <input type="text" name="message" id="message">
+                <input type="submit" value="Send">
+            </div>    
+        </form>
+    </div>
 
 </div>
 
 {% endblock %}
+
+<!--
+    1) finish styling for the sending message
+    2) do the functionality for sending a message
+    3) do the functionality for fetching and displaying all the messages
+-->
