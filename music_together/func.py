@@ -133,4 +133,10 @@ class Database:
                 con.commit()
                 con.close()
                 return True
-            
+    
+    def leave_room(self,username):
+        con,cur = self.db_connect()
+        cur.execute("UPDATE users SET connected_to_rid='' WHERE username=?",[username])
+        con.commit()
+        con.close()
+        return
