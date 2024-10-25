@@ -139,6 +139,13 @@ def remove_from_room_queue():
 def get_room_chat():
     pass
 
-@app.route("/send_message")
+@app.route("/send_message",methods=["POST"])
 def send_room_chat_message():
-    pass
+    if request.form == "POST":
+        rid = request.form["room_id"]
+        user = session["username"]
+        message = request.form["message"]
+        DB.send_message(rid,user,message)
+        return redirect(url_for("room"))
+    
+ # room_id, user_id, message
