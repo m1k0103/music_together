@@ -5,30 +5,45 @@
 
 
 
-<div class="left-container" style="border: 1px red solid;">
+<div class="left-container">
 
+    
     <form action="/leave_current_room" method="post">
         <input type="submit" value="Leave Room">
     </form>
 
-    <!--Chatbox in chat left-container which is just used as a 
-    container for the whole chat stuff-->
-    <div class="chatbox">
-        <div class="chat-time">time</div>
-        <div class="chat-username">bob50</div>
-        <div class="chat-message-container">
-            <span class="chat-message-text">Hello wordl!</span>
-        </div>
-    </div>
+    <div class="chat-container">
 
-    <div class="chat-input-container">
-        <form action="/send_message" method="post">
-            <span class="chat-input">
-                <label for="message">Message:</label>
-                <input type="text" name="message" id="message">
-                <input type="submit" value="Send">
-            </span>    
-        </form>
+        <!--Chatbox in chat left-container which is just used as a 
+        container for the whole chat stuff-->
+        <div class="chatbox">
+            <div class="chat-time">time</div>
+            <div class="chat-username">bob50</div>
+            <div class="chat-message-container">
+                <span class="chat-message-text">Hello wordl!</span>
+            </div>
+        </div>
+
+
+        <div class="chatbox">
+            <div class="chat-time">time</div>
+            <div class="chat-username">juzio_maly</div>
+            <div class="chat-message-container">
+                <span class="chat-message-text">czesc</span>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <form action="/send_message" method="post">
+                <span class="chat-input">
+                    <label for="message">Message:</label>
+                    <input type="text" name="message" id="message">
+                    <input type="hidden" name="{{room_id}}">
+                    <input type="submit" value="Send">
+                </span>    
+            </form>
+        </div>
+
     </div>
 
 </div>
