@@ -114,10 +114,13 @@ class Database:
         con.close()
         return room_id
     
-    def send_message(self,user,message):
+    def send_message(self,room_id,user,message):
         con,cur = self.db_connect()
-        cur.execute("INSERT INTO chats()")
-    
+        cur.execute("INSERT INTO chats(room_id,user_id,message) VALUES (?,(SELECT uid FROM users WHERE username=?),?)",[room_id,user,message])
+        con.commit()
+        con.close()
+        return
+
     def join_room(self,room_id,user,provided_pass):
         con,cur = self.db_connect()
         room_pass = cur.execute("SELECT password FROM rooms WHERE rid=?",[room_id]).fetchone()[0]
