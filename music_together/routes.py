@@ -135,13 +135,15 @@ def add_to_room_queue():
 def remove_from_room_queue():
     pass
 
-@app.route("/get_room_chat")
+@app.route("/get_room_chat",methods=["GET"])
 def get_room_chat():
-    pass
+    messages = DB.get_last_messages(20)
+    return render_template() # finish above func first
+
 
 @app.route("/send_message",methods=["POST"])
 def send_room_chat_message():
-    if request.form == "POST":
+    if request.method == "POST":
         rid = request.form["room_id"]
         user = session["username"]
         message = request.form["message"]
