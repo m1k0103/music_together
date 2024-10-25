@@ -143,3 +143,7 @@ class Database:
         con.commit()
         con.close()
         return
+    
+    def get_last_messages(self,count):
+        con,cur = self.db_connect()
+        cur.execute("SELECT Q") # carry on from here
