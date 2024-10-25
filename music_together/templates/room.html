@@ -24,21 +24,12 @@
             </div>
         </div>
 
-
-        <div class="chatbox">
-            <div class="chat-time">time</div>
-            <div class="chat-username">juzio_maly</div>
-            <div class="chat-message-container">
-                <span class="chat-message-text">czesc</span>
-            </div>
-        </div>
-
         <div class="chat-input-container">
             <form action="/send_message" method="post">
                 <span class="chat-input">
                     <label for="message">Message:</label>
                     <input type="text" name="message" id="message">
-                    <input type="hidden" name="{{room_id}}">
+                    <input type="hidden" name="room_id" value="{{room_id}}">
                     <input type="submit" value="Send">
                 </span>    
             </form>
@@ -47,6 +38,24 @@
     </div>
 
 </div>
+
+<script>
+function get_chats(room_id){
+    const req = new XMLHttpRequest()
+    req.onload = function(){
+        const response = this.responseText
+        if (response == document.getElementById("chat-container").innerHTML){
+            console.log("no changes in chat")
+        }else{
+            document.getElementById("chat-container").innerHTML = response
+        }
+    }
+    req.open("GET","/get_room_chat",true)
+    req.send()
+}
+setInterval(get_messages,1250)
+document.onload = get_messages()
+</script>
 
 {% endblock %}
 
