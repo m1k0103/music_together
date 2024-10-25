@@ -50,8 +50,6 @@ li.navbar{
     /*border: 1px blue solid;*/
     width: 50%;
     max-width: 50%;
-    display: table;
-    height: 95%;
 }
 .right-container{
     margin-top:35px;
@@ -160,13 +158,14 @@ li.navbar{
     border: 2px black solid;
     border-radius: 4px;
     margin: 3px;
-    margin-top: 5%;
     padding: 3px;
+    margin-bottom: 6px;
     background-color: #B3B3B3;
     display: flex;
+    width: 100%;
 }
 .chat-time{
-    text-align: center;
+    text-align: left;
     padding: 3px;
     padding-left: 5px;
     padding-right: 5px;
@@ -179,7 +178,7 @@ li.navbar{
     padding-top: 3px;
     padding-bottom: 3px;
     border-right: 1px black solid;
-    text-align: center;
+    text-align: left;
     max-width: 120px;
 }
 .chat-message-container{
@@ -195,23 +194,23 @@ li.navbar{
     /*border: 1px blue solid;*/
 }
 .chat-input-container{
-    border: 1px yellow solid;
+    /*border: 1px yellow solid;*/
     padding: 3px;
-    display: flex;  
     text-align: center;
-    flex-flow: column;
-    height: 100%;
-    position: relative;
+    position: absolute;
+    top: 100%;
 }
 .chat-input{
     border: 1px black solid;
     padding: 6px; 
-    vertical-align: bottom;
-    flex: 1 1;
 }
 #message{
     width: 50%;
     text-align: left;
     margin-top: 4px;
     margin-bottom: 4px;
+}
+.chat-container{
+    border: 1px rgb(124, 43, 43) solid;
+    height: 85vh; 
 }
