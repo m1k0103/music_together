@@ -68,6 +68,7 @@ class Database:
                     room_id INT,
                     user_id INT,
                     message TEXT,
+                    time TEXT,
                     FOREIGN KEY (user_id) REFERENCES users(uid),
                     FOREIGN KEY (room_id) REFERENCES rooms(rid)
                     )""")
@@ -114,9 +115,9 @@ class Database:
         con.close()
         return room_id
     
-    def send_message(self,room_id,user,message):
+    def send_message(self,room_id,user,message,time):
         con,cur = self.db_connect()
-        cur.execute("INSERT INTO chats(room_id,user_id,message) VALUES (?,(SELECT uid FROM users WHERE username=?),?)",[room_id,user,message])
+        cur.execute("INSERT INTO chats(room_id,user_id,message,time) VALUES (?,(SELECT uid FROM users WHERE username=?),?,?)",[room_id,user,message,time])
         con.commit()
         con.close()
         return
@@ -144,6 +145,11 @@ class Database:
         con.close()
         return
     
-    def get_last_messages(self,count):
+    def get_last_messages(self,count,rid):
         con,cur = self.db_connect()
-        cur.execute("SELECT Q") # carry on from here
+        results = [list(tup) for tup in cur.execute("SELECT user_id,message,time FROM chats WHERE room_id=? ORDER BY time DESC LIMIT ?",[rid,count]).fetchall()]
+        for r in results:
+            r[0] = cur.execute("SELECT username FROM users WHERE uid=?",[r[0]]).fetchone()[0]
+        results = results[::-1]
+        con.close()
+        return results
