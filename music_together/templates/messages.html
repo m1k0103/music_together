@@ -1,0 +1,9 @@
+{% for username,message,time in data%}
+<div class="chatbox">
+    <div class="chat-time">{{time}}</div>
+    <div class="chat-username">{{username}}</div>
+    <div class="chat-message-container">
+        <span class="chat-message-text">{{message}}</span>
+    </div>
+</div>
+{% endfor%}
