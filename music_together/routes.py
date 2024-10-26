@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from music_together.func import Database, get_db_name, get_secret, is_session_valid
+from datetime import datetime
 
 # TODO
 #   - figure out a way to display any errors
@@ -137,17 +138,19 @@ def remove_from_room_queue():
 
 @app.route("/get_room_chat",methods=["GET"])
 def get_room_chat():
-    messages = DB.get_last_messages(20)
-    return render_template() # finish above func first
+    rid = session["room"]
+    messages = DB.get_last_messages(20,rid)
+    return render_template("messages.html",data=messages) # finish above func first
 
 
 @app.route("/send_message",methods=["POST"])
-def send_room_chat_message():
+def send_message():
     if request.method == "POST":
         rid = request.form["room_id"]
         user = session["username"]
         message = request.form["message"]
-        DB.send_message(rid,user,message)
+        time = str(datetime.now()).split(" ")[1].split(".")[0]
+        DB.send_message(rid,user,message,time)
         return redirect(url_for("room"))
     
  # room_id, user_id, message
