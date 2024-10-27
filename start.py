@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
 #todo:
 # - add chat to room ✓
-#   + maybe experiment with a "flask listener" or something to reduce amount of requests send to server??
+#   + maybe experiment with a "flask listener" or something to reduce amount of requests send to server?? nah
 # - test passwords with rooms with multiple clients
 # - test connecting without valid user
 # - make it so that there is a "leave room" button.
