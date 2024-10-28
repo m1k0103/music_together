@@ -13,3 +13,7 @@ if __name__ == "__main__":
 #   + cant leave room or navigate any other page. will have to add to base.html
 # - start progress on the actual music part
 #   + figure out a way to sync two client's musics together (aj aj aj...)
+
+
+
+# The Jambos were here.
