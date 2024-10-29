@@ -153,3 +153,6 @@ class Database:
         results = results[::-1]
         con.close()
         return results
+    
+    def get_song_from_src(self):
+        pass
