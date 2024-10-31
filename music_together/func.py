@@ -1,6 +1,7 @@
 import sqlite3
 import yaml
 import hashlib
+from urllib.parse import urlparse
 
 def get_db_name():
     try:
@@ -154,5 +155,12 @@ class Database:
         con.close()
         return results
     
-    def get_song_from_src(self):
+    def get_song_from_src(self,src):
+        hostname = urlparse(src).hostname
+        if "soundcloud" in hostname:
+            pass
+        elif "spotify" in hostname:
+            pass
+        elif "youtube" in hostname:
+            pass
         pass
