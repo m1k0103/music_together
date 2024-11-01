@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 
 def get_db_name():
     try:
-        with open("config.yaml", "r") as cfg:
+        with open("config.yml", "r") as cfg:
             contents = yaml.safe_load(cfg)
             name = contents["database_name"]
             return name
@@ -15,7 +15,7 @@ def get_db_name():
 
 def get_secret():
     try:
-        with open("config.yaml", "r") as cfg:
+        with open("config.yml", "r") as cfg:
             contents = yaml.safe_load(cfg)
             secret = contents["secret"]
             return secret
