@@ -64,9 +64,9 @@ li.navbar{
     display: flex;
     border: 1px black solid;
     background-color: #adadad;
-    margin-bottom: 30px;
-    width: 90%;
-    margin-left: 5px;
+    margin-bottom: 1.5vw;
+    width: 40vw;
+    margin-left: 0.5vw;
 
 }
 .room-name, .room-privacy {
@@ -198,7 +198,8 @@ li.navbar{
     padding: 3px;
     text-align: center;
     position: absolute;
-    top: 100%;
+    top: 43vw;
+
 }
 .chat-input{
     border: 1px black solid;
@@ -219,4 +220,17 @@ li.navbar{
 }
 .music-selector-container{
     
+}
+.leave-room-button{
+    background-color: #be2b2b;
+    color: #000000;
+    border: 2px black solid;
+    border-radius: 4px;
+    margin: 3px;
+    margin-top: 0;
+    display: flex;
+    float: right;
+}
+.leave-room-button:hover{
+    background-color: #9c2222;
 }
