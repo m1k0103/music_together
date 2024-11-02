@@ -1,4 +1,3 @@
-import sqlite3
 from music_together.func import Database, get_db_name
 import os
 import secrets
