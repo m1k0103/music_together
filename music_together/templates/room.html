@@ -3,14 +3,11 @@
 {% block head %}{% endblock %}
 {% block content %}
 
-
+<form action="/leave_current_room" method="post">
+    <input class="leave-room-button" type="submit" value="Leave Room">
+</form>
 
 <div class="left-container">
-
-    
-    <form action="/leave_current_room" method="post">
-        <input type="submit" value="Leave Room">
-    </form>
 
     <div class="chat-container" id="chat-container">
 
@@ -25,7 +22,6 @@
             </div>
         </div>
         -->
-
     </div>
         <div class="chat-input-container">
             <form action="/send_message" method="post">
@@ -67,14 +63,8 @@
             req.open("GET","/get_room_chat",true)
             req.send()
         }
-        setInterval(get_chats,1250)
+        setInterval(get_chats,2000)
         document.onload = get_chats()
     </script>
     
 {% endblock %}
-
-<!--
-    1) finish styling for the sending message
-    2) do the functionality for sending a message
-    3) do the functionality for fetching and displaying all the messages
--->
