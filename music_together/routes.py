@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, session
 from music_together.func import Database, get_db_name, get_secret, is_session_valid
 from datetime import datetime
 from flask_socketio import SocketIO
+import time
 
 # TODO
 #   - figure out a way to display any errors
@@ -153,8 +154,8 @@ def send_message():
         rid = request.form["room_id"]
         user = session["username"]
         message = request.form["message"]
-        time = str(datetime.now()).split(" ")[1].split(".")[0]
-        DB.send_message(rid,user,message,time)
+        timestamp = str(time.time())
+        DB.send_message(rid,user,message,timestamp)
         return redirect(url_for("room"))
 
     
